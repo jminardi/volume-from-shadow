@@ -6,7 +6,7 @@ from mpl_toolkits.mplot3d import Axes3D
 
 def plot_3d(pts, elev=8, azim=-10, show=False, **kwargs):
     """ Plots the given point cloud in stero 3D.
-    
+
     Parameters
     ----------
     elev : int
@@ -17,7 +17,7 @@ def plot_3d(pts, elev=8, azim=-10, show=False, **kwargs):
         Should plot be shown immediately?
     kwargs : optional
         Optional kw arguments to be fed to plot method
-    
+
     """
     fig = plt.figure()
     ax1 = fig.add_subplot(121, projection='3d')
@@ -31,20 +31,20 @@ def plot_3d(pts, elev=8, azim=-10, show=False, **kwargs):
     if show:
         plt.show()
     return fig
- 
-       
+
+
 def save_figure(fig, name='fig', size=None, out_dir='out'):
     if size is not None:
         fig.set_size_inches(size[0], size[1])
     fig.savefig('{}/{}.png'.format(out_dir, name))
 
 
-def save_animation(step=5):    
+def save_animation(cloud, step=5):
     for azim in np.arange(0, 360, step):
-        fig = plot_3d(whittled, azim=azim, s=50)
+        fig = plot_3d(cloud, azim=azim, s=50)
         save_figure(fig, name='{0:03d}'.format(azim), size=(10, 5))
-    
-    
+
+
 def get_rotation_matrix(angle):
     # Rotate about the z-axis
     cos, sin = np.cos(angle), np.sin(angle)
@@ -62,7 +62,7 @@ def project_polygon(polygon, xy_res=3, z_res=30, scale=.9):
         line_x = np.linspace(scale * point[0], scale * next_point[0], xy_res)
         line_y = np.linspace(scale * point[1], scale * next_point[1], xy_res)
         pts = np.vstack([line_x, line_y]).T
-        
+
         projected_polygon = np.vstack([projected_polygon, pts])
         x_vector = np.tile(np.linspace(-.5, .5, z_res)[:, np.newaxis],
                            projected_polygon.shape[0]).reshape(-1,1)
@@ -110,8 +110,8 @@ def whittle(cloud, polygons):
         # Rotate the cloud and go to the next projection
         cloud = cloud.dot(rotation_matrix)
     return cloud
-    
-    
+
+
 def get_global_min_max(polygons):
     min_x = min_y = np.inf
     max_x = max_y = -np.inf
@@ -121,8 +121,8 @@ def get_global_min_max(polygons):
         max_x = max(polygon.max(0)[0], max_x)
         max_y = max(polygon.max(0)[1], max_y)
     return ((min_x, min_y), (max_x, max_y))
-    
-    
+
+
 def center_normalize_polygon(polygon, min=None, max=None):
     if min is None:
         min_x, min_y = polygon.min(0)
@@ -146,7 +146,7 @@ tree_polys = [np.load('4.npy'),
               np.load('3.npy'),
               np.load('2.npy'),
               np.load('1.npy')]
-              
+
 # Ensure that all polygons are normalized with the same constants
 min, max = get_global_min_max(tree_polys)
 tree_polys = [center_normalize_polygon(p, min, max) for p in tree_polys]
