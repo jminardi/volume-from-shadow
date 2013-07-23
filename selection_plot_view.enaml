@@ -1,0 +1,14 @@
+#from chaco.api import (Plot, ArrayPlotData, LinearMapper, HPlotContainer,
+#                       ColorBar)
+#from enaml.widgets.api import Container
+
+from enable_canvas import EnableCanvas
+
+from enaml.widgets.api import Window, Container, Label
+
+
+enamldef Main(Window): main:
+    attr plot
+    Container:
+        EnableCanvas:
+            component << main.plot
