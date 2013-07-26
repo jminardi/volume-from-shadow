@@ -141,7 +141,6 @@ def center_normalize_polygon(polygon, min=None, max=None):
 # Polygons to be fed to wittle algorithm
 polygons = [np.array([[1, 0], [0,-1], [-1, 0], [0, 1]]),
             np.array([[1, 0], [0,-1], [-1, 0], [0, 1]]),]
-print 'hiiii'
 tree_polys = [np.load('4.npy'),
               np.load('3.npy'),
               np.load('2.npy'),
