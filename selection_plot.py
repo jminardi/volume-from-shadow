@@ -12,11 +12,6 @@ class SelectionPlot(HasStrictTraits):
     plot = Instance(Plot)
 
     def _plot_default(self):
-        # Create a scalar field to colormap
-        #xs = np.linspace(0, 10, 600)
-        #ys = np.linspace(0, 5, 600)
-        #x, y = np.meshgrid(xs,ys)
-        #z = np.exp(-(x**2+y**2)/100)
 
         # Create a plot data obect and give it this data
         pd = ArrayPlotData()
