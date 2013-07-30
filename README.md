@@ -11,3 +11,5 @@ Here is an example of the point cloud volume produced by this algorithm (cross e
 ![Tree point cloud](https://github.com/jminardi/volume-from-shadow/blob/master/generated-GIFs/med.gif?raw=true)
 
 This cloud was generated using the polygons in the input directory
+
+You can find a more detailed writup on my blog: http://jack.minardi.org/software/whats-in-a-shadow/
